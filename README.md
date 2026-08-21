@@ -24,14 +24,14 @@ Controller (HTTP handling) → Service (Business Logic) → Repository (Data acc
 Each layer talks to the one below it through interfaces and only knows about the one directly below it, so any layer can be swapped or mocked independently.
 
 **Figure 1 — Layered request flow**
-![Layered request flow](images/layered-request-flow.png)
-![High level design](images/architecture.png)
+![Layered request flow](Images/layered-request-flow.png)
+![High level design](Images/architecture.png)
 
 **Figure 2 — Domain model and layer interfaces**
-![Class diagram](images/class-diagram.png)
+![Class diagram](Images/class-diagram.png)
 
 **Figure 3 — Login, then an authenticated task creation**
-![Auth and request flow](images/sequence-diagram.png)
+![Auth and request flow](Images/sequence-diagram.png)
 
 ## Setup
 
@@ -78,31 +78,28 @@ curl -X POST http://localhost:5153/api/tasks \
 
 Any request to `/api/tasks/*` without a valid `Authorization: Bearer <token>` header returns `401`. A task ID that exists but belongs to another user returns `404` (not `403`), this avoids confirming to an attacker that a given task ID even exists.
 
-## Tests
-
-*(to be added — see checklist at the bottom)*
 
 ### Testing through Postman
 
 1. **Register** — Expected: `200 OK`
-![Register-auth ](images/register-auth.png)
+![Register-auth ](Images/register-auth.png)
 
 2. **Register with the same username again** — Expected: `409 Conflict`, "Username is already taken"
-![Register-duplicate ](images/register-duplicate.png)
+![Register-duplicate ](Images/register-duplicate.png)
 3. **Login with correct username and password** — Expected: `200 OK`
-![login-auth ](images/login-auth.png)
+![login-auth ](Images/login-auth.png)
 4. **Login with incorrect username or password** — Expected: `401 Unauthorized`
-![login-failed ](images/login-failed.png)
+![login-failed ](Images/login-failed.png)
 5. **Get tasks without a token** — Expected: `401 Unauthorized`
-![get-task-failed ](images/get-task-failed.png)
+![get-task-failed ](Images/get-task-failed.png)
 6. **Get tasks with a token** — Expected: `200 OK`, `[]`
-![get-task-auth ](images/get-task-auth.png)
+![get-task-auth ](Images/get-task-auth.png)
 7. **Create a task with a token** — Expected: `201 Created`, response contains task details including `id`
-![create-task ](images/create-task.png)
+![create-task ](Images/create-task.png)
 8. **Update a task by ID** — Expected: `200 OK`, updates status to `InProgress`
-![update-task ](images/update-task.png)
+![update-task ](Images/update-task.png)
 9. **Delete a task by ID** — Expected: `204 No Content`
-![delete-task ](images/delete-task.png)
+![delete-task ](Images/delete-task.png)
 
 Trying to update or delete a task that isn't yours returns `404 Not Found` (not `403`), that way the ownership check does not let you confirm whether the task exists at all.
 
@@ -110,8 +107,8 @@ If a token expires, log in again to get a new one.
 
 ## UI
 
-![Task Manager UI](images/ui-login.png)
-![Task Manager UI](images/ui-home.png)
+![Task Manager UI](Images/ui-login.png)
+![Task Manager UI](Images/ui-home.png)
 
 
 
